@@ -1,6 +1,5 @@
 package com.gukdev.ghostmode;
 
-import com.gukdev.ghostmode.bomb.Bomb;
 import com.gukdev.ghostmode.listeners.PlayerMovementListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -13,7 +12,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class GhostModePlugin extends JavaPlugin implements Listener {
     private static GhostModePlugin instance;
     private GameManager gameManager;
-    private Bomb bomb;
 
     @Override
     public void onEnable() {
@@ -42,15 +40,9 @@ public class GhostModePlugin extends JavaPlugin implements Listener {
                 } else if (args.length > 0 && args[0].equalsIgnoreCase("stop")) {
                     gameManager.stopGame();
                 } else if (args.length > 0 && args[0].equalsIgnoreCase("plantbomb")) {
-                    if (gameManager.isGameActive()) {
-                        Location location = player.getLocation();
-                        bomb = new Bomb(this, player, location);
-                        bomb.plantBomb();
-                    }
+                    gameManager.plantBomb(player);
                 } else if (args.length > 0 && args[0].equalsIgnoreCase("defusebomb")) {
-                    if (gameManager.isGameActive() && bomb != null && bomb.isPlanted()) {
-                        bomb.defuseBomb(player);
-                    }
+                    gameManager.defuseBomb(player);
                 } else {
                     sender.sendMessage("Usage: /ghostmode <start|stop|plantbomb|defusebomb>");
                 }
