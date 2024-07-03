@@ -22,5 +22,3 @@ public class GhostTeam {
         ghosts.clear();
     }
 }
-
-

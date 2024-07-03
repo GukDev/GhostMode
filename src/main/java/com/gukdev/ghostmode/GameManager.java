@@ -12,15 +12,17 @@ import java.util.Collections;
 import java.util.List;
 
 public class GameManager {
-    private GhostTeam ghostTeam;
-    private HumanTeam humanTeam;
+    private final GhostTeam ghostTeam;
+    private final HumanTeam humanTeam;
+    private final ConfigManager configManager;
     private boolean gameActive = false;
     private Bomb bomb;
-    private List<Location> bombSites;
+    private final List<Location> bombSites;
 
-    public GameManager() {
+    public GameManager(ConfigManager configManager) {
         this.ghostTeam = new GhostTeam();
         this.humanTeam = new HumanTeam();
+        this.configManager = configManager;
         this.bombSites = new ArrayList<>();
     }
 
@@ -28,24 +30,26 @@ public class GameManager {
         List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
         Collections.shuffle(players);
         int halfSize = players.size() / 2;
+        int ghostTeamSize = Math.min(halfSize, configManager.getGhostTeamSize());
+        int humanTeamSize = Math.min(halfSize, configManager.getHumanTeamSize());
 
         for (int i = 0; i < players.size(); i++) {
-            if (i < halfSize) {
+            if (i < ghostTeamSize) {
                 ghostTeam.addGhost(players.get(i));
-            } else {
+            } else if (i < ghostTeamSize + humanTeamSize) {
                 humanTeam.addHuman(players.get(i));
             }
         }
 
         gameActive = true;
-        Bukkit.broadcastMessage("Ghost Mode game started! Ghosts vs Humans!");
+        Bukkit.broadcastMessage(configManager.getMessage("game_started"));
     }
 
     public void stopGame() {
         ghostTeam.clearTeam();
         humanTeam.clearTeam();
         gameActive = false;
-        Bukkit.broadcastMessage("Ghost Mode game stopped!");
+        Bukkit.broadcastMessage(configManager.getMessage("game_stopped"));
     }
 
     public boolean isGameActive() {
@@ -69,16 +73,18 @@ public class GameManager {
         if (isGameActive() && isBombSite(player.getLocation())) {
             bomb = new Bomb(GhostModePlugin.getInstance(), player, player.getLocation());
             bomb.plantBomb();
+            Bukkit.broadcastMessage(configManager.getMessage("bomb_planted").replace("%player%", player.getName()));
         } else {
-            player.sendMessage("You can only plant the bomb at designated sites!");
+            player.sendMessage(configManager.getMessage("not_bomb_site"));
         }
     }
 
     public void defuseBomb(Player player) {
         if (isGameActive() && bomb != null && bomb.isPlanted()) {
             bomb.defuseBomb(player);
+            Bukkit.broadcastMessage(configManager.getMessage("bomb_defused").replace("%player%", player.getName()));
         } else {
-            player.sendMessage("There is no bomb to defuse!");
+            player.sendMessage(configManager.getMessage("no_bomb_to_defuse"));
         }
     }
 }

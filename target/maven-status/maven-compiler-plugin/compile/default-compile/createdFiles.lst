@@ -1,6 +1,8 @@
-com\gukdev\ghostmode\Bomb.class
-HumanTeam.class
+com\gukdev\ghostmode\GameManager.class
+com\gukdev\ghostmode\teams\HumanTeam.class
 com\gukdev\ghostmode\teams\GhostTeam.class
+com\gukdev\ghostmode\bomb\Bomb$1.class
 com\gukdev\ghostmode\GhostModePlugin.class
+com\gukdev\ghostmode\bomb\Bomb.class
 com\gukdev\ghostmode\listeners\PlayerMovementListener.class
-com\gukdev\ghostmode\Bomb$1.class
+com\gukdev\ghostmode\ConfigManager.class

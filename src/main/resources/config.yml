@@ -1,0 +1,17 @@
+# Configuration file for GhostMode plugin
+
+# General settings
+general:
+  bomb_timer: 30      # Time in seconds for the bomb to explode after being planted
+  ghost_team_size: 4  # Number of players in the Ghost team
+  human_team_size: 4  # Number of players in the Human team
+
+# Messages
+messages:
+  game_started: "Ghost Mode game started! Ghosts vs Humans!"
+  game_stopped: "Ghost Mode game stopped!"
+  bomb_planted: "%player% has planted the bomb!"
+  bomb_defused: "%player% has defused the bomb!"
+  bomb_exploded: "The bomb has exploded!"
+  not_bomb_site: "You can only plant the bomb at designated sites!"
+  no_bomb_to_defuse: "There is no bomb to defuse!"

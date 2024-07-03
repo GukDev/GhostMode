@@ -1,0 +1,17 @@
+name: GhostMode
+version: 1.0.0
+main: com.gukdev.ghostmode.GhostModePlugin
+author: GukDev
+description: A Minecraft plugin inspired by the Ghost Mode from "Mission Against Terror". Create asymmetric multiplayer gameplay with ghosts and humans.
+
+commands:
+  ghostmode:
+    description: Main command for controlling the Ghost Mode game.
+    usage: /<command> <start|stop|plantbomb|defusebomb>
+    aliases: [gm]
+    permission: ghostmode.admin
+
+permissions:
+  ghostmode.admin:
+    description: Allows access to all GhostMode commands.
+    default: op
