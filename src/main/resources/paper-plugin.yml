@@ -1,0 +1,4 @@
+name: GhostMode
+version: '${project.version}'
+main: com.gukdev.ghostmode.GhostModePlugin
+api-version: '1.21'
